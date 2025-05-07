@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Image Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 40px; }
+        .container { background: #fff; padding: 30px; border-radius: 8px; max-width: 400px; margin: auto; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        input, button { width: 100%; padding: 10px; margin: 10px 0; }
+        img { max-width: 100%; margin-top: 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Text to Image Generator</h2>
+        <input type="text" id="prompt" placeholder="Enter your prompt...">
+        <button onclick="generateImage()">Generate Image</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        async function generateImage() {
+            const prompt = document.getElementById('prompt').value;
+            document.getElementById('result').innerHTML = 'Generating...';
+            const response = await fetch('http://localhost:8000/generate-image', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt })
+            });
+            if (response.ok) {
+                const data = await response.json();
+                document.getElementById('result').innerHTML = `<img src="data:image/png;base64,${data.image_base64}" alt="Generated Image">`;
+            } else {
+                document.getElementById('result').innerHTML = 'Failed to generate image.';
+            }
+        }
+    </script>
+</body>
+</html> 
