@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 # Hugging Face API details
-HF_API_KEY = "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"
+HF_API_KEY = #Hugging face api key here 
 HF_MODEL = "stabilityai/stable-diffusion-xl-base-1.0"
 HF_URL = f"https://api-inference.huggingface.co/models/{HF_MODEL}"
 
